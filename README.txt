@@ -1,8 +1,9 @@
 ***********************************************************
 * README                                                  *
 ***********************************************************
-The usage has been modified a bit from the original specs in order to rely more on the URI rather then relying
-solely on params/
+The usage has been slightly modified a bit from the original specs
+The /search option must be included in the URI
+This is just slightly more inline with the best practices for building RESTful API's
 
 '/search' must be included in the URI for the API to get the correct response
 
