@@ -30,6 +30,7 @@ class RequestHandler {
       $this->uri = $uri;
       $this->method = $method;
       $this->request = $request;
+      $this->format = 'json';
    }
 
    /**
@@ -80,7 +81,7 @@ class RequestHandler {
     * @return array|string: The encoded response
     */
    private function buildResponse($data, $status, $format='json') {
-      if (! $data or $data['error_msg']) {
+      if (! $data or $data['errors']) {
          $status = 'error';
       }
       if ($format == 'text') {
@@ -106,11 +107,12 @@ class RequestHandler {
     * @return string: Returned response
     */
    private function doGet($request, $uri) {
-      $response = array();
+      $response = array('numbers' => array());
 
       // split the uri up to see what the user wants
       // in this example a 'search' option will denote that we want to process this request
-      $uri_options = array_filter(explode('/', $uri), create_function('$arg', 'return $arg;'));
+      $trimmed_uri = explode('?', $uri)[0];
+      $uri_options = array_filter(explode('/', $trimmed_uri), create_function('$arg', 'return $arg;'));
 
       // returns help text
       if (in_array('about', $uri_options)) {
@@ -122,6 +124,11 @@ class RequestHandler {
          $this->format = 'json';
          $param_processor = new ParamProcessor($request);
          $response = $param_processor->processParams();
+      }
+      // no required options in URI
+      else {
+         $this->format = 'json';
+         $response['errors'] = array('/search or /about not found in URL: Nothing to do. Please see /api/about');
       }
 
       return $response;
