@@ -7,6 +7,7 @@ This is just slightly more inline with the best practices for building RESTful A
 
 '/search' must be included in the URI for the API to get the correct response
 
+### USAGES ###
 To view the API Documentation:
 http://codewrencher.com/api/about
 
