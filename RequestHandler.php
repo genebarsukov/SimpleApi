@@ -117,7 +117,7 @@ class RequestHandler {
       // returns help text
       if (in_array('about', $uri_options)) {
          $this->format = 'text';
-         $response = file_get_contents('README.md');
+         $response = file_get_contents('README.txt');
       }
       // returns main application data
       else if (in_array('search', $uri_options)) {
